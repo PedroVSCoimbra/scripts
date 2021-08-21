@@ -1,0 +1,3 @@
+/usr/bin/git --git-dir=/home/pedro/dados/configs/configsPC --work-tree=$HOME add -u
+/usr/bin/git --git-dir=/home/pedro/dados/configs/configsPC --work-tree=$HOME commit -m "Commit at every minute"
+/usr/bin/git --git-dir=/home/pedro/dados/configs/configsPC --work-tree=$HOME push git@github.com:PedroVSCoimbra/configs.git

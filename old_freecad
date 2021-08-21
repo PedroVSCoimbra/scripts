@@ -1,0 +1,1 @@
+LD_PRELOAD='/usr/$LIB/libstdc++.so.6' DISPLAY=:0 freecad

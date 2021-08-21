@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Update email
+while true
+do
+    mailsync
+    sleep 30
+done &
+

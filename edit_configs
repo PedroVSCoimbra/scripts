@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#broot
+declare options=("
+neovim
+zsh
+bash
+dwm
+vifm
+xresources
+qutebrowser
+st
+dunst
+quit")
+
+choice=$(echo -e "${options[@]}" | dmenu -p 'Edit config file: ')
+
+case "$choice" in
+	quit)
+		echo "Program terminated." && exit 1
+	;;
+	bash)
+		choice="/etc/bash.bashrc"
+	;;
+	dwm)
+		choice="$HOME/computer/programs/dwm/config.h"
+	;;
+	neovim)
+		choice="$HOME/.config/nvim/init.vim"
+	;;
+	st)
+		choice="$HOME/computer/programs/st/config.h"
+	;;
+	qutebrowser)
+		choice="$HOME/.config/qutebrowser/config.py"
+	;;
+	vifm)
+		choice="$HOME/.config/vifm/vifmrc"
+	;;
+	xresources)
+		choice="/home/pedro/computer/configs/X11/xresources"
+	;;
+	zsh)
+		choice="$HOME/.zshrc"
+	;;
+	dunst)
+		choice="$HOME/.config/dunst/dunstrc"
+	;;
+	*)
+		exit 1
+	;;
+esac
+st -e sudo nvim "$choice"

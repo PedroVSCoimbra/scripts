@@ -1,0 +1,34 @@
+#!/bin/sh
+
+[ -z "$1" ] && echo "Give either a pdf file or DOI as an argument." && exit
+
+#title=
+if [ -f "$1" ]; then
+  # Try to get DOI from pdfinfo or pdftotext output
+  doi=$(pdfinfo "$1" | grep -io "doi..*") ||
+  doi=$(pdftotext "$1" 2>/dev/null - | grep -io "doi..*" -m 1 | sed "s/\s*//g;s/兴//") ||
+  exit 1
+
+  # Try to get the output using a google search
+  if [ -z "$doi" ]; then
+    doi=$(googler --np $(pdfinfo "$1" | grep Title | sed 's/Title://;s/s*//') doi | grep -io 'doi:.* \| doi .*' -m 1 | sed 's/DOI: /DOI:/'| awk '{print $1}' | sed 's/^....//;s/.$//') ||
+    exit 1
+  fi
+
+  # Try to get the output using a google search - other string
+#  if [ -z "$doi" ]; then
+#    doi=$(googler --np $(pdfinfo "$1" | grep Title | sed 's/Title://;s/s*//') doi | grep 'doi.org' -m 1 | sed 's/^.*doi.org\///'| awk '{print $1}') ||
+#    exit 1
+#  fi
+
+else
+
+  doi="$1"
+
+fi
+# Check corssref.org for the bib citation.
+curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex" -w "\\n" | sed '1s/\(.*\)/\L\1/;1s/_//g'
+
+#https://arc.aiaa.org/doi/abs/10.2514/6.2008-584
+
+#Usar o scrip de forma complementar se for o caso, quando tiver mais conhecimento voltar nele

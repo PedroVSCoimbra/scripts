@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+SEL=$(xsel -ob)
+T="$(trans :pt -b "$SEL")"
+ notify-send "$T"
