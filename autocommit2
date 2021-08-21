@@ -3,9 +3,8 @@
 # /usr/bin/git push origin main
 # git branch -M main
 
-git init ~/.local/scripts/
-git add ~/.local/scripts/
-git commit -m "first commit"
+git add ~/.local/scripts/*
+git commit -m "commit at every minute"
 git branch -M main
 git remote add origin git@github.com:PedroVSCoimbra/scripts.git
 git push -u origin main
