@@ -1,4 +1,5 @@
-mport os
+#!/usr/bin/env python3
+import os
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt

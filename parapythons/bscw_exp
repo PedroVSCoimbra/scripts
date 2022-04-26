@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import os
+import numpy
+import matplotlib
+from matplotlib import pyplot as plt
+matplotlib.rcParams['text.usetex'] = True
+
+
+exp = numpy.genfromtxt("/home/pedro/dados/cfd/su2/aepw_sotck/01_experimental_data_all_cases/case3/Case3_ForcedOscMach85/data_cp_mode_60.csv", delimiter=",", names=["x", "cp_mode"])
+cfd = numpy.genfromtxt("data/data_eta60.csv", skip_header=1, skip_footer=1, delimiter=",", names=["Density", "Momentum:0", "Momentum:1", "Momentum:2", "Energy", "Nu_Tilde", "Pressure", "Temperature", "Mach", "Pressure_Coefficient", "Laminar_Viscosity", "Skin_Friction_Coefficient:0", "Skin_Friction_Coefficient:1", "Skin_Friction_Coefficient:2", "Heat_Flux", "Y_Plus", "Eddy_Viscosity", "x", "Points:1", "Points:2"])
+fig, ax = plt.subplots()
+ax.plot(exp['x'], -exp['y'], 'or',markersize=2, label="Experimental")
+ax.plot(cfd['x']/0.19, -cfd['Pressure_Coefficient'], 'o',markersize=2, label="Numerical")
+ax.set_title(r'Cp vs x/c at $\eta=60$')
+ax.set_xlabel("x/c")
+ax.set_ylabel("Cp")
+ax.legend()
+#  plt.figtext(.8, .5, r'Cp vs x/c para $\alpha=0$ $\lambda=0$ $\eta=%s$ Re = 2.500.000 Ma 0.840'%eta[i])
+plt.savefig('plots/cp_mode_cfd_exp.pdf')
+
+# Make a pdf of With the plots
+#  os.system('pdfunite plots/*final.pdf plots/simple_report.pdf')
